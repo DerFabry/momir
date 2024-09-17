@@ -1,21 +1,38 @@
 from PIL import Image, ImageEnhance
 import subprocess
-import requests
-from io import BytesIO
+import os
 import RPi.GPIO as GPIO
-from time import sleep
+from random import randrange
 
-def getCardData(cmc):
-    url = f"https://api.scryfall.com/cards/random?q=type%3Dcreature+cmc%3D{cmc}"
+def Momir(cmc):
+    directory = f"creatures/{cmc}"
+    filelist = os.listdir(directory)
+    selection = filelist[randrange(len(filelist))]
+    image = Image.open(selection)
+    printCard(image)
+     
+def StonehewerGiant(cmc):
+    directory = f"equipment/{randrange(cmc)}"
+    filelist = os.listdir(directory)
+    selection = filelist[randrange(len(filelist))]
+    image = Image.open(selection)
+    printCard(image)
 
-    response = requests.get(url)
-    response_data = response.json()
-    image_uri = response_data['image_uris']['png']
-
-    img_response = requests.get(image_uri, stream=True)
-    if img_response.status_code == 200:
-        img = Image.open(BytesIO(img_response.content))
-        return img
+def JhoiraInstant():
+    for i in range(3):
+        directory = f"intants"
+        filelist = os.listdir(directory)
+        selection = filelist[randrange(len(filelist))]
+        image = Image.open(selection)
+        printCard(image)
+     
+def JhoiraSorceries():
+    for i in range(3):
+        directory = f"sorceries"
+        filelist = os.listdir(directory)
+        selection = filelist[randrange(len(filelist))]
+        image = Image.open(selection)
+        printCard(image)
 
 def printCard(img):
     img = img.convert('L')
