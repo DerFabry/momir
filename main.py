@@ -17,7 +17,7 @@ def Santa(cmc):
     image = Image.open(f"{directory}/{selection}")
     qr = Image.open(f"{directory}/qr/{selection}")
     printCard(image)
-    storeQRCode(image)
+    storeQRCode(qr)
 
 def Momir(cmc):
     directory = f"/home/fabry/momir-basic/creatures/{cmc}"
@@ -65,16 +65,16 @@ def printCard(img):
     img = img.convert('L')
     #enhancer = ImageEnhance.Contrast(img)
     #img = enhancer.enhance(10)
-    filename = "img.png"
+    filename = "/home/fabry/momir-basic/img.png"
     img.save(filename)
 
     #subprocess.run(['lp', '-o', 'fit-to-page', filename])
 def storeQRCode(img):
-    filename = "qr.png"
+    filename = "/home/fabry/momir-basic/qr.png"
     img.save(filename)
 
 def print_lastQRCode():
-    subprocess.run(['lp', '-o', 'fit-to-page', 'qr.png'])
+    subprocess.run(['lp', '-o', 'fit-to-page', '/home/fabry/momir-basic/qr.png'])
 
 def b0_cb():
     print(0)
