@@ -4,6 +4,8 @@ from pathlib import Path
 import os
 import json
 
+ChristmasSpirit = True
+
 def downloadCardImages(baseDir, jsonData, cmc, sortByCMC=True):
     directory = f"{baseDir}/{cmc}" if sortByCMC else f"{baseDir}"
     Path(directory).mkdir(parents=True, exist_ok=True)
@@ -30,31 +32,32 @@ def downloadCardImages(baseDir, jsonData, cmc, sortByCMC=True):
         else:
             break
 
-
-os.chdir(Path(__file__).parent.resolve())
-listOfCMCs = []
-listOfResponse = []
-for cmc in range (0,16):
-    response =  requests.get(f"https://api.scryfall.com/cards/search?q=-t%3Aland+-st%3Afunny+mv%3A{cmc}")
-    json_response = json.loads(response.content)
-    if response.status_code == 200:
-        downloadCardImages("xmas", json_response, cmc)
-# for cmc in range(0,30):
-#     response =  requests.get(f"https://api.scryfall.com/cards/search?q=t%3Acreature+-st%3Afunny+mv%3A{cmc}")
-#     json_response = json.loads(response.content)
-#     if response.status_code == 200:
-#         downloadCardImages("creatures", json_response, cmc)
-#     response =  requests.get(f"https://api.scryfall.com/cards/search?q=t%3Aequipment+-st%3Afunny+mv%3A{cmc}")
-#     json_response = json.loads(response.content)
-#     if response.status_code == 200:
-#         downloadCardImages("equipment", json_response, cmc)
-#     response =  requests.get(f"https://api.scryfall.com/cards/search?q=t%3Ainstant+-st%3Afunny+mv%3A{cmc}")
-#     json_response = json.loads(response.content)
-#     if response.status_code == 200:
-#         downloadCardImages("instants", json_response, cmc, False)
-#     response =  requests.get(f"https://api.scryfall.com/cards/search?q=t%3Asorcery+-st%3Afunny+mv%3A{cmc}")
-#     json_response = json.loads(response.content)
-#     if response.status_code == 200:
-#         downloadCardImages("sorceries", json_response, cmc, False)
+if ChristmasSpirit:
+    os.chdir(Path(__file__).parent.resolve())
+    listOfCMCs = []
+    listOfResponse = []
+    for cmc in range (0,16):
+        response =  requests.get(f"https://api.scryfall.com/cards/search?q=-t%3Aland+-st%3Afunny+mv%3A{cmc}")
+        json_response = json.loads(response.content)
+        if response.status_code == 200:
+            downloadCardImages("xmas", json_response, cmc)
+else:
+    for cmc in range(0,16):
+        response =  requests.get(f"https://api.scryfall.com/cards/search?q=t%3Acreature+-st%3Afunny+mv%3A{cmc}")
+        json_response = json.loads(response.content)
+        if response.status_code == 200:
+            downloadCardImages("creatures", json_response, cmc)
+        response =  requests.get(f"https://api.scryfall.com/cards/search?q=t%3Aequipment+-st%3Afunny+mv%3A{cmc}")
+        json_response = json.loads(response.content)
+        if response.status_code == 200:
+            downloadCardImages("equipment", json_response, cmc)
+        response =  requests.get(f"https://api.scryfall.com/cards/search?q=t%3Ainstant+-st%3Afunny+mv%3A{cmc}")
+        json_response = json.loads(response.content)
+        if response.status_code == 200:
+            downloadCardImages("instants", json_response, cmc, False)
+        response =  requests.get(f"https://api.scryfall.com/cards/search?q=t%3Asorcery+-st%3Afunny+mv%3A{cmc}")
+        json_response = json.loads(response.content)
+        if response.status_code == 200:
+            downloadCardImages("sorceries", json_response, cmc, False)
     
         
