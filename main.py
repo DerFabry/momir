@@ -68,7 +68,7 @@ def printCard(img):
     filename = "/home/fabry/momir-basic/img.png"
     img.save(filename)
 
-    #subprocess.run(['lp', '-o', 'fit-to-page', filename])
+    subprocess.run(['lp', '-o', 'fit-to-page', filename])
 def storeQRCode(img):
     filename = "/home/fabry/momir-basic/qr.png"
     img.save(filename)
